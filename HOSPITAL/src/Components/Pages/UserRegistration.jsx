@@ -1,27 +1,33 @@
-import React, { useEffect, useRef,useState } from 'react'
+import React, { useRef } from 'react'
+import {toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
+
 
 const UserRegistration = () => {
 
   const nav=useNavigate()
 
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    Password: '',
-    Cpassword:'',
-    is_doctor:''
-  });
-  
-  useEffect(()=>{
-
-    console.warn(formData)
-  },[formData])
-  
   const inputref=useRef(null)
 
-  const submitHandler= async (e)=>{
+  const RegistrationAPI = async (name,email,Password,Cpassword,is_doctor)=>{
+    
+    
+    try {
+      const response = await axios.post('http://127.0.0.1:8000/UserRegistration/', {name:name,email:email,password:Password,confirmpassword:Cpassword,is_doctor:is_doctor});
+      console.log(response.data);
+      toast.success('Registration Successfull')
+      nav('/Login')
+    } catch (error) { 
+      const errorMessage = error.response?.data?.email?.[0] || error.response?.data?.non_field_errors?.[0];
+    toast.error(errorMessage);
+    }
+  }
+
+  
+  
+  const submitHandler= (e)=>{
     
     e.preventDefault();
     let name=inputref.current.name.value
@@ -31,19 +37,9 @@ const UserRegistration = () => {
     let is_doctor=document.getElementById("isDoctor").checked
     
     
-    setFormData({name:name,email:email,password:Password,confirmpassword:Cpassword,is_doctor:is_doctor})
-
-
-
-    try {
-      const response = await axios.post('http://127.0.0.1:8000/UserRegistration/', formData);
-      console.log(response.data);
-    } catch (error) {
-      console.error('There was an error submitting the form!', error);
-    }
-    
+   
+    RegistrationAPI(name,email,Password,Cpassword,is_doctor)
   }
-  
 
   return (
     <div>
@@ -140,6 +136,8 @@ const UserRegistration = () => {
                 >
                   Sign up
                 </button>
+                <br></br>
+                Already have an acount? <Link to='/Login' >Login</Link>
               </div>
           </form>
         </div>
