@@ -9,6 +9,9 @@ import { Route, Routes } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import NavBar from './Components/Pages/NavBar'
+import ProfileEdit from './Components/Pages/ProfileEdit'
+import DoctorProfileEdit from './Components/Pages/DoctorProfileEdit'
+
 
 
 function App() {
@@ -23,6 +26,9 @@ function App() {
         <Route path="/Login" element={<UserLogin/>}></Route>
         <Route path="/home" element={<UserHome/>}></Route>
         <Route path="/profile" element={<UserProfile/>}></Route>
+        <Route path="/profiledit/:id" element={<ProfileEdit />} />
+        <Route path="/doctorprofiledit/:id" element={<DoctorProfileEdit />} />
+       
       </Routes>
      
     </div>

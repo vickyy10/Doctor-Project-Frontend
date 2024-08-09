@@ -9,16 +9,15 @@ export const AuthContext = createContext()
 const AuthProvider = ({children}) => {
 
    
-    let [JWToken,setJWToken]=useState( localStorage.getItem('JWToken')? JSON.parse(localStorage.getItem('JWToken')):null)
-    let [User,setUser] = useState(null)
-    let [loading,setloading] = useState(true)
+    let [JWToken,setJWToken]=useState(()=>localStorage.getItem('JWToken')? JSON.parse(localStorage.getItem('JWToken')):null)
+    let [User,setUser] = useState(()=>localStorage.getItem('JWToken')? jwtDecode(localStorage.getItem('JWToken')):null)
     const nav=useNavigate()
 
     
     let LoginUser= async (e)=>{
         e.preventDefault()
         
-        let response = await fetch('http://127.0.0.1:8000/getoken/',{
+        let response = await fetch('http://127.0.0.1:8000/Login/',{
             method:'POST',
             headers:{
                 'Content-Type':'application/json'
@@ -32,6 +31,7 @@ const AuthProvider = ({children}) => {
 
             setJWToken(data)
             setUser(jwtDecode(data.access))
+            
             localStorage.setItem('JWToken',JSON.stringify(data))
             nav('/home')
 
@@ -87,9 +87,9 @@ const AuthProvider = ({children}) => {
 
                 updateToken()
             }
-        },2000)
+        },1000 * 60 * 4)
         return ()=> clearInterval(interval)
-    },[JWToken, loading])
+    },[JWToken])
 
     
     let contextData={

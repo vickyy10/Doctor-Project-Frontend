@@ -1,41 +1,96 @@
-import React,{useContext} from 'react';
-
+import React,{useContext,useEffect,useState} from 'react';
 import { AuthContext } from '../context/AuthContext';
+import axios from 'axios';
 import {
   MDBCard,
   MDBCardBody,
   MDBCardTitle,
   MDBCardText,
   MDBCardImage,
-  MDBBtn
 } from 'mdb-react-ui-kit';
+import { Link } from 'react-router-dom';
 
-
+import { useNavigate } from 'react-router-dom';
 
 
 const UserHome = () => {
+  const nav=useNavigate()
+  const baseurl='http://127.0.0.1:8000/'
+  let {name,user} = useContext(AuthContext);
+  const [data, setData] = useState([]);
+  const [doctor,Setdoctor]= useState(null)
+  
+  
+  
+useEffect(()=>{
 
-  let {name} = useContext(AuthContext); 
+  if (user.is_doctor){
+   
+    
+    fetchDoctor();
+  }else{
+   
+    
+    fetchData()
+  }
+},[])
+
+  const fetchDoctor = async () => {
+    try {
+      const response = await axios.get(`http://127.0.0.1:8000/DoctorHome/${user.user_id}/`); // Adjust the URL to match your endpoint
+      setData(response?.data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  const fetchData = async () => {
+    
+    try {
+      const response = await axios.get('http://127.0.0.1:8000/userhome/'); // Adjust the URL to match your endpoint
+      setData(response?.data);
+       // Set the data into the state
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
 
   return (
     <div>
-      <h2>hello {name}</h2>
-
-
+      {user.is_doctor ?(
+      
+     <div>
+      
+      <img src={`${baseurl+data?.image}`} alt="" />
+      <h1>name :{data.name} </h1>
+      <h1>department : {data.departmet}</h1>
+      <h1>hospital : {data.hospital}</h1>
+      <button onClick={()=>nav(`/doctorprofiledit/${user.user_id}`)} >edit</button>
+     </div>
+      
+      
+      )
+      :(
+      <>
+      <button onClick={()=>nav(`/profiledit/${user.user_id}`)} >edit profile</button>
       <div className="flex flex-wrap justify-center mt-8 w-full">
-        {[...Array(3)].map((_, index) => (
+        {data?.map((data,index) => (
           <MDBCard key={index} className="max-w-sm mx-4 mb-6">
-            <MDBCardImage src='https://mdbootstrap.com/img/new/standard/nature/184.webp' position='top' alt='...' />
+            <MDBCardImage src={`${baseurl+data?.image}`} position='top' alt='...' />
             <MDBCardBody>
-              <MDBCardTitle>Card title</MDBCardTitle>
+              <MDBCardTitle>{data?.name}</MDBCardTitle>
               <MDBCardText>
-                Some quick example text to build on the card title and make up the bulk of the card's content.
+                {data?.departmet}
+                {data?.hospital}
               </MDBCardText>
-              <MDBBtn href='#'>Button</MDBBtn>
             </MDBCardBody>
           </MDBCard>
+         
         ))}
       </div>
+      </>
+)}
+      
     </div>
   );
 };
