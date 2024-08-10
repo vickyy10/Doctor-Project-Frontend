@@ -11,6 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import NavBar from './Components/Pages/NavBar'
 import ProfileEdit from './Components/Pages/ProfileEdit'
 import DoctorProfileEdit from './Components/Pages/DoctorProfileEdit'
+import AdminPanel from './Components/Pages/AdminPanel'
 
 
 
@@ -28,6 +29,7 @@ function App() {
         <Route path="/profile" element={<UserProfile/>}></Route>
         <Route path="/profiledit/:id" element={<ProfileEdit />} />
         <Route path="/doctorprofiledit/:id" element={<DoctorProfileEdit />} />
+        <Route path="/adminpanel" element={<AdminPanel />} />
        
       </Routes>
      

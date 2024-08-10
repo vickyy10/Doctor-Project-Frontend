@@ -19,11 +19,14 @@ const NavBar = () => {
               <div className="hidden sm:ml-6 sm:block">
                 <div className="flex space-x-4">
                 {user ? (
-    user.is_doctor ? (
+    user.is_admin ? (
+        <Link className='text-3xl font-bold tracking-tight text-white sm:text-4xl' to='/adminpanel'>
+            <h1>ADMIN PANEL</h1>
+        </Link>
+    ) : user.is_doctor ? (
         <Link className='text-3xl font-bold tracking-tight text-white sm:text-4xl' to='/home'>
             <h1>DOCTOR HOME</h1>
         </Link>
-        
     ) : (
         <Link className='text-3xl font-bold tracking-tight text-white sm:text-4xl' to='/home'>
             <h1>USER HOME</h1>
@@ -34,6 +37,7 @@ const NavBar = () => {
         <h1>SIGN IN</h1>
     </Link>
 )}
+
 
                 </div>
               </div>

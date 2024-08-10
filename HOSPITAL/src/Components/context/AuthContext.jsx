@@ -25,15 +25,24 @@ const AuthProvider = ({children}) => {
             body:JSON.stringify({'email':e.target.email.value,'password':e.target.password.value})
         })
         let data = await response.json()
-        console.log("data :",data);
 
         if(response.status === 200){
 
             setJWToken(data)
-            setUser(jwtDecode(data.access))
+            const decodedUser = jwtDecode(data.access);
+                setUser(decodedUser);
             
             localStorage.setItem('JWToken',JSON.stringify(data))
-            nav('/home')
+            console.log(User);
+
+            if (decodedUser.is_admin){
+                nav('/adminpanel')
+
+            }
+            else{
+
+                nav('/home')
+            }
 
         }else{
             toast.error("somthing went wrong")
@@ -66,14 +75,12 @@ const AuthProvider = ({children}) => {
         let data = await response.json()
 
         if (response.status === 200){
-            console.log('if');
             
             setJWToken(data)
             setUser(jwtDecode(data.access))
             localStorage.setItem('JWToken',JSON.stringify(data))
             
         }else{
-            console.log('else');
             
             LogoutUser()
         }
