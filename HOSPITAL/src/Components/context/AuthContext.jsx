@@ -31,9 +31,10 @@ const AuthProvider = ({children}) => {
             setJWToken(data)
             const decodedUser = jwtDecode(data.access);
                 setUser(decodedUser);
+                
+                
             
             localStorage.setItem('JWToken',JSON.stringify(data))
-            console.log(User);
 
             if (decodedUser.is_admin){
                 nav('/adminpanel')
@@ -102,7 +103,8 @@ const AuthProvider = ({children}) => {
     let contextData={
         user:User,
         loginUser:LoginUser,
-        logoutUser:LogoutUser
+        logoutUser:LogoutUser,
+        JWToken:JWToken
     }
 
     

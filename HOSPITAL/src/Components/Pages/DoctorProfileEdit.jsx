@@ -1,36 +1,43 @@
-import React, { useState,useEffect, useRef } from 'react'
+import React, { useState,useEffect, useRef, useContext } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
+import { AuthContext } from '../context/AuthContext'
 
 
 
 
 
 const DoctorProfileEdit = () => {
+const {JWToken} = useContext(AuthContext)
+
 const inputref=useRef()
 const {id}=useParams()
 const [Data,setData]=useState('')
 const baseurl='http://127.0.0.1:8000/'
 const nav=useNavigate()
     
+console.log('kk');
     useEffect(() => {
   
         fetchData();
+        
+      },[]);
       
-    }, [id]);
-
-    const fetchData = async () => {
-      
+      const fetchData = async () => {
+        
+        console.log(JWToken,'token')
         try {
-            const response = await axios.get(`http://127.0.0.1:8000/DoctorHome/${id}/`); // Adjust the URL to match your endpoint
-            setData(response?.data);
-            console.log(response?.data);
-           
-             // Set the data into the state
-          } catch (error) {
-            console.error('Error fetching data:', error);
-          }
-        };
+        const response = await axios.get(`http://127.0.0.1:8000/DoctorHome/${id}/`, {
+          headers: {
+            Authorization: `Bearer ${JWToken.access}`,
+          },
+        });
+        setData(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
 
     const submithandler=(e)=>{
 
@@ -39,26 +46,32 @@ const nav=useNavigate()
         let email=inputref.current.email.value
         let department=inputref.current.department.value
         let hospital=inputref.current.hospital.value
-        console.warn(name);
+        console.warn(department);
         
         editDoctor(name,email,department,hospital)
         
       
     }
     
-    const editDoctor = async (name,email,department,hospital)=>{
-
-        try {
-            const response = await axios.patch(`http://127.0.0.1:8000/DoctorHome/${id}/`,{name:name,email:email,departmet:department,hospital:hospital}); // Adjust the URL to match your endpoint
-            setData(response?.data);
-            console.log(response?.data);
-            nav('/home')
-            
-             // Set the data into the state
-          } catch (error) {
-            console.error('Error fetching data:', error);
-          }
-    }
+    const editDoctor = async (name, email, department, hospital) => {
+      try {
+        const response = await axios.patch(`http://127.0.0.1:8000/DoctorHome/${id}/`, {
+          name,
+          email,
+          department,
+          hospital,
+        }, {
+          headers: {
+            Authorization: `Bearer ${JWToken.access}`,
+          },
+        });
+        setData(response.data);
+        console.log(response.data);
+        nav('/home');
+      } catch (error) {
+        console.error('Error updating data:', error);
+      }
+    };
 
 
   return (

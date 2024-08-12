@@ -54,63 +54,48 @@ const UserRegistration = () => {
 
         <div style={{padding:"30px",backdropFilter:"blur(20px)"}} className=" sm:mx-auto sm:w-full sm:max-w-sm ">
           <form ref={inputref} onSubmit={submitHandler} action="#" method="POST" className="space-y-6">
-            <div className="flex items-center justify-between">
-                <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
-                  Name
-                </label>
-              </div>
               <div className="mt-2">
                 <input
                   id="name"
                   name="name"
                   type="text"
+                  placeholder='Enter name'
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
-
-              <div className="flex items-center justify-between">
-                <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
-                  Email Address
-                </label>
-              </div>
+      <br />
               <div className="mt-2">
                 <input
                   id="email"
                   name="email"
                   type="email"
+                  placeholder='Enter email adress'
                   required
                   autoComplete="email"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
-
               <div>
-                <div className="flex items-center justify-between">
-                  <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
-                    Password
-                  </label>
-                </div>
+              
                 <div className="mt-2">
                   <input
                     id="password"
                     name="password"
                     type="password"
+                    placeholder='Password'
                     required
                     autoComplete="current-password"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
-                <div className="flex items-center justify-between">
-                  <label htmlFor="Cpassword" className="block text-sm font-medium leading-6 text-gray-900">
-                    Confirm Password
-                  </label>
-                </div>
+                <br />
                 <div className="mt-2">
                   <input
                     id="Cpassword"
                     name="Cpassword"
                     type="password"
+                    placeholder='Confirm Password'
                     required
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
@@ -124,7 +109,7 @@ const UserRegistration = () => {
                   type="checkbox"
                   className="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
                 />
-                <label htmlFor="isDoctor"  className="ml-2 block text-sm text-gray-900">
+                <label style={{color:"white"}} htmlFor="isDoctor"  className="ml-2 block text-sm text-gray-900">
                   Are you a doctor?
                 </label>
               </div>
@@ -137,7 +122,7 @@ const UserRegistration = () => {
                   Sign up
                 </button>
                 <br></br>
-                Already have an acount? <Link to='/Login' >Login</Link>
+                <p style={{color:"white"}} >Already have an acount? <Link style={{color:"blue"}} to='/Login' >Login</Link> </p>
               </div>
           </form>
         </div>

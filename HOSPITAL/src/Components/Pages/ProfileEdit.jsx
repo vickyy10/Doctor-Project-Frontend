@@ -1,14 +1,16 @@
-import {React,useState,useEffect} from 'react'
+import {React,useState,useEffect, useContext} from 'react'
 import { Link, useParams } from 'react-router-dom'
 import axios from 'axios';
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
 
 const ProfileEdit = () => {
 const [Data, setData] = useState('');
 const { id }=useParams()
 const inputref=useRef()
 const nav=useNavigate()
+const {JWToken}=useContext(AuthContext)
 
 
   
@@ -19,13 +21,17 @@ useEffect(() => {
 }, [id]);
   
 const fetchData = async () => {
+
       
     try {
-        const response = await axios.get(`http://127.0.0.1:8000/UserProfile/${id}/`); // Adjust the URL to match your endpoint
+        const response = await axios.get(`http://127.0.0.1:8000/UserProfile/${id}/`, {
+          headers: {
+            Authorization: `Bearer ${JWToken.access}`,
+          },
+        });
         setData(response?.data);
         console.log(response?.data);
         
-         // Set the data into the state
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -36,7 +42,11 @@ const fetchData = async () => {
     const edituser= async (name,email)=>{
 
         try {
-            const response = await axios.patch(`http://127.0.0.1:8000/UserProfile/${id}/`,{name:name,email:email}); // Adjust the URL to match your endpoint
+            const response = await axios.patch(`http://127.0.0.1:8000/UserProfile/${id}/`,{name:name,email:email},{
+              headers: {
+                Authorization: `Bearer ${JWToken.access}`,
+              },
+            })
             setData(response?.data);
             console.log(response?.data);
             nav('/home')

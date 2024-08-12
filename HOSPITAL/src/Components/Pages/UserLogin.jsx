@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { AuthContext } from '../context/AuthContext';
+import { Link } from 'react-router-dom';
 
 const UserLogin = () => {
 
@@ -9,13 +10,10 @@ let {loginUser} = useContext(AuthContext)
 
   return (
     <div>
+      <img style={{width:"100%",height:"100vh",position:"absolute",zIndex:"-1",backdropFilter:"1px",filter:"brightness(0.5)"}} src="https://image.freepik.com/free-photo/doctor-with-stethoscope-hand-hospital-background-medical-medicine-concept_34200-278.jpg" alt="" />
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <img
-            alt="Your Company"
-            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-            className="mx-auto h-10 w-auto"
-          />
+          
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             Sign in 
           </h2>
@@ -24,7 +22,7 @@ let {loginUser} = useContext(AuthContext)
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form onSubmit={loginUser} className="space-y-6">
             <div>
-              <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+              <label htmlFor="email" className="block text-sm font-medium leading-6 text-white">
                 Email address
               </label>
               <div className="mt-2">
@@ -41,7 +39,7 @@ let {loginUser} = useContext(AuthContext)
 
             <div>
               <div className="flex items-center justify-between">
-                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+                <label htmlFor="password" className="block text-sm font-medium leading-6 text-white">
                   Password
                 </label>
               </div>
@@ -64,6 +62,8 @@ let {loginUser} = useContext(AuthContext)
               >
                 Sign in
               </button>
+              <br />
+              <p style={{color:"white"}} >dont have an account ? <Link style={{color:"blue"}} to={'/'} >sign up</Link></p>
             </div>
           </form>
         </div>
