@@ -10,13 +10,20 @@ const [Data, setData] = useState('');
 const { id }=useParams()
 const inputref=useRef()
 const nav=useNavigate()
-const {JWToken}=useContext(AuthContext)
+const {JWToken,user}=useContext(AuthContext)
 
 
   
 useEffect(() => {
-  
+  if (user.is_doctor) {
+    
+    nav('/home')
+  }else if(user.is_admin){
+    nav('/adminpanel')
+  }else{
+
     fetchData();
+  }
   
 }, [id]);
   
@@ -24,7 +31,7 @@ const fetchData = async () => {
 
       
     try {
-        const response = await axios.get(`http://127.0.0.1:8000/UserProfile/${id}/`, {
+        const response = await axios.get(`http://127.0.0.1:8000/UserProfile/`, {
           headers: {
             Authorization: `Bearer ${JWToken.access}`,
           },
@@ -42,7 +49,7 @@ const fetchData = async () => {
     const edituser= async (name,email)=>{
 
         try {
-            const response = await axios.patch(`http://127.0.0.1:8000/UserProfile/${id}/`,{name:name,email:email},{
+            const response = await axios.patch(`http://127.0.0.1:8000/UserProfile/`,{name:name,email:email},{
               headers: {
                 Authorization: `Bearer ${JWToken.access}`,
               },

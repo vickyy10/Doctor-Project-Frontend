@@ -31,20 +31,24 @@ const UserHome = () => {
   
 useEffect(()=>{
 
-  if (user.is_doctor){
+  if (user?.is_doctor){
    
     
     fetchDoctor();
-  }else{
-   
-    
-    fetchData()
+  }else if(!user){
+    nav('/Login')
+    console.log('hi');
+  }
+  else{
+    fetchData() 
   }
 },[])
 
   const fetchDoctor = async () => {
+    
+    
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/DoctorHome/${user.user_id}/`, {
+      const response = await axios.get(`http://127.0.0.1:8000/DoctorHome/`, {
         headers: {
           Authorization: `Bearer ${JWToken.access}`,
         },
@@ -72,7 +76,7 @@ useEffect(()=>{
   return (
     <div  >
        <img style={{width:"100%",height:"100vh",position:"absolute",zIndex:"-1",backdropFilter:"1px",filter:"brightness(0.5)"}} src="https://image.freepik.com/free-photo/doctor-with-stethoscope-hand-hospital-background-medical-medicine-concept_34200-278.jpg" alt="" />
-      {user.is_doctor ?(
+      {user?.is_doctor ?(
       <div style={{padding:"150px"}}>
 
       <div className="p-5">
@@ -90,7 +94,7 @@ useEffect(()=>{
           <div>
             <h1 className="text-2xl font-bold text-center">Name: {data.name}</h1>
             <div className="mt-4">
-              <span className="text-lg font-medium">Department: {data.departmet}</span>
+              <span className="text-lg font-medium">Department: {data.department}</span>
             </div>
             <div className="mt-4">
               <h2 className="text-lg font-medium">Hospital: {data.hospital}</h2>
@@ -98,7 +102,7 @@ useEffect(()=>{
           </div>
           <div className="mt-8 md:mt-0 flex justify-center">
             <button
-              onClick={() => nav(`/doctorprofiledit/${user.user_id}`)}
+              onClick={() => nav(`/doctorprofiledit`)}
               className="px-6 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-700 transition-colors duration-300"
               >
               Edit Profile
@@ -115,7 +119,7 @@ useEffect(()=>{
       )
       :(
       <>
-      <div style={{display:"flex",justifyContent:"center"}} ><button onClick={()=>nav(`/profiledit/${user.user_id}`)} >edit profile</button></div>
+      <div style={{display:"flex",justifyContent:"center"}} ><button onClick={()=>nav(`/profiledit`)} >edit profile</button></div>
       <div className="flex flex-wrap justify-center mt-8 w-full">
         {data?.map((data,index) => (
           <MDBCard key={index} className="max-w-sm mx-4 mb-6">
@@ -123,7 +127,7 @@ useEffect(()=>{
             <MDBCardBody>
               <MDBCardTitle>name : {data?.name}</MDBCardTitle>
               <MDBCardText>
-                departmet:{data?.departmet}
+                department:{data?.department}
                 <br />
                 hospital: {data?.hospital}
               </MDBCardText>

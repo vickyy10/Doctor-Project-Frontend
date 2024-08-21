@@ -80,6 +80,8 @@ const AuthProvider = ({children}) => {
             setJWToken(data)
             setUser(jwtDecode(data.access))
             localStorage.setItem('JWToken',JSON.stringify(data))
+            console.log("toke updated");
+            
             
         }else{
             
@@ -92,7 +94,8 @@ const AuthProvider = ({children}) => {
 
         let interval = setInterval(()=>{
             if(JWToken){
-
+                console.log("useffect worked");
+                
                 updateToken()
             }
         },1000 * 60 * 4)
@@ -119,24 +122,3 @@ const AuthProvider = ({children}) => {
 
 export default AuthProvider
 
-
-
-// import React from 'react'
-
-// import { createContext } from 'react'
-
-// const context=createContext()
-
-// export default context;
-
-// const AuthProvider = ({children}) => {
-//   return (
-//     <>
-//     <context.Provider value={{'name':'vicky'}}>
-//         {children}
-//     </context.Provider>
-//     </>
-//   )
-// }
-
-// export default AuthProvider
