@@ -134,10 +134,10 @@ const UserRegistration = () => {
 
     <div className="w-full h-screen flex justify-center items-center relative overflow-hidden">
   {/* Background Divs */}
-  <div className="absolute top-0 left-0 w-[60%] h-full bg-blue-100 "></div>
-  <div className="absolute top-0 right-0 w-[40%] h-full bg-blue-800"></div>
-  <div className="absolute top-0 left-0 w-[60%] h-full bg-blue-800 rounded-tr-[300px]"></div>
-  <div className="absolute top-0 right-0 w-[40%] h-full bg-blue-100 rounded-bl-[200px]"></div>
+  <div className="absolute top-0 left-0  w-[40%] h-full  bg-blue-800 "></div>
+  <div className="absolute top-0 right-0 w-[60%] h-full  bg-blue-200"></div>
+  <div className="absolute top-0 left-0 h-full w-[40%]  bg-blue-200  rounded-br-[300px]"></div>
+  <div className="absolute top-0 right-0  w-[60%]  h-full  bg-blue-800 rounded-tl-[200px]"></div>
   
   {/* Main Container */}
   <div className="relative z-10 w-[70%] h-[80vh] rounded-[40px] flex shadow-lg">
@@ -154,15 +154,16 @@ const UserRegistration = () => {
     <div className="w-1/2 bg-blue-40 backdrop-blur-md flex flex-col justify-center items-center rounded-tr-[40px] rounded-br-[40px] p-8">
       <div className="w-3/4">
         {/* Sign Up / Sign In Toggle */}
-        <div className="mb-8 flex justify-between">
-          <span className="text-xl font-semibold text-gray-700">Sign Up</span>
-          <span className="text-xl text-gray-400">Sign In</span>
+        <div className="mb-8 flex justify-around">
+          <button className="text-4xl font-semibold text-white border-b-4 border-blue-500 pb-1">Sign Up</button>
+          <button className="text-4xl text-white"
+          onClick={()=>nav('/Login')}>Sign In</button>
         </div>
 
         {/* Sign Up Form */}
-        <form className="space-y-6">
+        <form className="space-y-2">
           <div>
-            <label className="block text-gray-700">Full Name</label>
+            <label className="block text-white">Full Name</label>
             <input
               type="text"
               className="w-full p-3 border border-gray-300 rounded-md"
@@ -171,7 +172,7 @@ const UserRegistration = () => {
           </div>
 
           <div>
-            <label className="block text-gray-700">Email</label>
+            <label className="block text-white">Email</label>
             <input
               type="email"
               className="w-full p-3 border border-gray-300 rounded-md"
@@ -180,13 +181,25 @@ const UserRegistration = () => {
           </div>
 
           <div>
-            <label className="block text-gray-700">Password</label>
+            <label className="block text-white">Password</label>
             <input
               type="password"
               className="w-full p-3 border border-gray-300 rounded-md"
               placeholder="Enter your password"
             />
           </div>
+          
+          <div className="flex items-center">
+                <input
+                  id="isDoctor"
+                  name="isDoctor"
+                  type="checkbox"
+                  className="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                />
+                <label style={{color:"white"}} htmlFor="isDoctor"  className="ml-2 block text-sm text-gray-900">
+                  Are you a doctor?
+                </label>
+              </div>
 
           <button
             type="submit"
@@ -195,13 +208,6 @@ const UserRegistration = () => {
             Sign Up
           </button>
         </form>
-
-        {/* Already have an account */}
-        <div className="text-center mt-6">
-          <a href="#" className="text-blue-600">
-            I have an Account?
-          </a>
-        </div>
       </div>
     </div>
   </div>
