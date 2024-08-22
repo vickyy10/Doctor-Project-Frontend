@@ -42,7 +42,8 @@ const UserRegistration = () => {
   }
 
   return (
-    <div>
+    <>
+    <div style={{width:"100%",height:"100vh"}}>
       <img style={{width:"100%",height:"100vh",position:"absolute",zIndex:"-1",backdropFilter:"1px",filter:"brightness(0.5)"}} src="https://image.freepik.com/free-photo/doctor-with-stethoscope-hand-hospital-background-medical-medicine-concept_34200-278.jpg" alt="" />
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -128,6 +129,87 @@ const UserRegistration = () => {
         </div>
       </div>
     </div>
+
+    {/* ========================================== */}
+
+    <div className="w-full h-screen flex justify-center items-center relative overflow-hidden">
+  {/* Background Divs */}
+  <div className="absolute top-0 left-0 w-[60%] h-full bg-blue-100 "></div>
+  <div className="absolute top-0 right-0 w-[40%] h-full bg-blue-800"></div>
+  <div className="absolute top-0 left-0 w-[60%] h-full bg-blue-800 rounded-tr-[300px]"></div>
+  <div className="absolute top-0 right-0 w-[40%] h-full bg-blue-100 rounded-bl-[200px]"></div>
+  
+  {/* Main Container */}
+  <div className="relative z-10 w-[70%] h-[80vh] rounded-[40px] flex shadow-lg">
+    {/* Left Side */}
+    <div className=" hidden md:flex w-1/2 bg-gradient-to-r from-blue-500 to-blue-300  items-center justify-center rounded-tl-[40px] rounded-bl-[40px] relative overflow-hidden">
+      <img
+        src="https://static.vecteezy.com/system/resources/previews/006/781/334/large_2x/young-asian-female-doctor-standing-on-blue-background-free-photo.JPG"
+        alt="Doctor"
+        className="w-full h-full object-cover rounded-tl-[40px] rounded-bl-[40px]"
+      />
+    </div>
+
+    {/* Right Side */}
+    <div className="w-1/2 bg-blue-40 backdrop-blur-md flex flex-col justify-center items-center rounded-tr-[40px] rounded-br-[40px] p-8">
+      <div className="w-3/4">
+        {/* Sign Up / Sign In Toggle */}
+        <div className="mb-8 flex justify-between">
+          <span className="text-xl font-semibold text-gray-700">Sign Up</span>
+          <span className="text-xl text-gray-400">Sign In</span>
+        </div>
+
+        {/* Sign Up Form */}
+        <form className="space-y-6">
+          <div>
+            <label className="block text-gray-700">Full Name</label>
+            <input
+              type="text"
+              className="w-full p-3 border border-gray-300 rounded-md"
+              placeholder="Enter your full name"
+            />
+          </div>
+
+          <div>
+            <label className="block text-gray-700">Email</label>
+            <input
+              type="email"
+              className="w-full p-3 border border-gray-300 rounded-md"
+              placeholder="Enter your email"
+            />
+          </div>
+
+          <div>
+            <label className="block text-gray-700">Password</label>
+            <input
+              type="password"
+              className="w-full p-3 border border-gray-300 rounded-md"
+              placeholder="Enter your password"
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="w-full p-3 bg-blue-600 text-white rounded-md mt-4 hover:bg-blue-700"
+          >
+            Sign Up
+          </button>
+        </form>
+
+        {/* Already have an account */}
+        <div className="text-center mt-6">
+          <a href="#" className="text-blue-600">
+            I have an Account?
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+    </>
   )
 }
 
